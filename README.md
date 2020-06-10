@@ -16,6 +16,26 @@
 
 ## Casts
 
+```go
+b := []bytes("C€")
+f := float64(i)
+s := string(b)
+u := uint(f)
+```
+
+```go
+import ("strconv")
+var s string = "true"
+s := strconv.FormatBool(true)
+```
+
+```go
+strconv.ParseFloat("1.234", 64)
+strconv.ParseInt("123", 0, 64)
+strconv.Atoi("135")
+strconv.Itoa(i)
+```
+
 
 ## Channels
 
@@ -47,6 +67,10 @@
 
 ## cpu
 
+```go
+import "runtime"
+numCPUs := runtime.NumCPU()
+```
 
 ## Crypto
 
@@ -59,6 +83,18 @@
 
 ## Debugging
 
+### delve
+
+```bash
+go get https://github.com/go-delve/delve
+dlv debug x.go
+```
+
+### gdb
+
+```bash
+gdb x
+```
 
 ## Documentation
 
@@ -74,6 +110,9 @@
 
 ## exit
 
+```go
+os.Exit(1)
+```
 
 ## Export
 
@@ -95,12 +134,23 @@
 
 ## goto
 
++ primarily for machine implementation
+
+```go
+goto E
+E:
+```
 
 ## hash table
 
 
 ## Help
 
+```bash
+go env
+go version
+go doc <pkg>
+```
 
 ## Import
 
