@@ -4,8 +4,30 @@
 
 ## Arrays
 
++ after initialisation &ndash; fixed length, static
++ are values (not pointers) &ndash; passed to a function by value (to change original array, use pointer )
++ not multi-dimensional &ndash; use arrays of arrays or slices of slices
++ comparable using `==`
+
+```go
+var a[3] int
+a[0] = 1
+a[len(a)-1]                         // last element
+var a[3] int = [3] int {1, 2, 3}    // array literal
+a := [...] int {1, 2, 3}            // ellipsis: compiler calculates length
+
+a := [2] string {"send", "rcvd"}
+for index, value := range a {
+...
+}
+```
+
+&ndash; see **Slices**, **Maps**
+
 
 ## Benchmarking
+
+- see **Testing**
 
 
 ## blank identifier _
@@ -19,6 +41,9 @@ _, f := path.Split("a/b/file.ext")
 
 ## Bytes
 
+```go
+'x'
+```
 
 ## Casts
 
@@ -30,7 +55,7 @@ u := uint(f)
 ```
 
 ```go
-import ("strconv")
+import "strconv"
 s := strconv.FormatBool(true)
 ```
 
@@ -44,11 +69,18 @@ strconv.Itoa(i)
 
 ## Channels
 
++ connections of same type between goroutines
++ avoid shared memory and mutexes
++ two principal operations: send, receive
++ usage: define channel, use goroutine passing channel reference, process message returned
++ channel connecting goroutines together &ndash; output to input = pipeline
+
+...
 
 ### unbuffered
 
 
-#### buffered
+### buffered
 
 
 ## cmd-line
@@ -70,7 +102,7 @@ strconv.Itoa(i)
 ## Constants
 
 + number, string, or bool
-+ constants without type have greater precision ~ 256 bits
++ constants without type have greater precision ~256 bits
 
 ```go
 const s string = "x"
@@ -311,6 +343,53 @@ i,j = j,i
 
 ## Time
 
+```go
+import "time"
+
+time.Now()
+time.Parse(time.<format>)
+time.Sleep(time.Second * n)
+time.Sleep(time.Millisecond * n)
+log.SetFlags(log.Ltime)                 // format log output hh:mm:ss
+time.AfterFunc(10 * time.Second, <fn>)
+```
+
+### Timer
+
+```go
+start := time.Now()
+...
+fmt.Printf("\nDone.\nElapsed: %v\n", time.Since(start))
+```
+
+### Ticker
+
+```go
+ticker := time.NewTicker(time.Millisecond * 100)
+
+go func() {
+    for {
+        <-ticker.C
+        fmt.Print(".")
+    }
+}()
+
+ticker.Stop()
+
+c := time.Tick(5 * time.Second)
+for t := range c {
+    fmt.Printf("%v\n", t)
+}
+```
+
+### Timeout
+
+```go
+for {
+    select {
+        case <-time.After(2 * time.Second): ...
+```
+
 
 ## Typed Primitives
 
@@ -328,7 +407,7 @@ type XErr error
 ```go
 type SteeringWheel struct {}
 type Sedan struct {
-    SteeringWheel // field has no name
+    SteeringWheel            // field has no name
 }
 ```
 
@@ -350,7 +429,7 @@ sedan.Turn()
 ```go
 var s string = "txt"
 
-s := "txt" // short var assignment, compiler infers type (in functions only, not package level)
+s := "txt"            // short var assignment, compiler infers type (in functions only, not package level)
 ```
 
 + **_** blank identifier: syntax requires var name, but logic does not
@@ -366,6 +445,6 @@ s := "txt" // short var assignment, compiler infers type (in functions only, not
 ## Wait Group
 
 ```go
-	import "sync"
-	sync.WaitGroup // blocks until a specified number of goroutines have finished
+import "sync"
+sync.WaitGroup // blocks until a specified number of goroutines have finished
 ```
