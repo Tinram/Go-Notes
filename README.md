@@ -85,8 +85,45 @@ strconv.Itoa(i)
 
 ## cmd-line
 
+```go
+import "os"
+for i, arg := range os.Args {
+    fmt.Println("arg", i, "=", arg)
+```
+
+```go
+if len(os.Args) != 3 { ...
+os.Args[1:]
+os.Args[2]
+```
+
+```go
+import "flag"
+s := flagString("s", "x", "help text")
+flag.Parse()
+fmt.Println("val of s:", *s)
+
+flag.Usage = "func() {
+    fmt.Fprintln(os.Stderr, "txt")
+```
+
+### sub commands
+
+```go
+x := flag.NewFlagSet("clone", flag.ExitOnError)
+switch os.Args[1] {
+    case "clone": ...
+```
+
 
 ## Commands
+
+```go
+import "os/exec"
+cmdOut, err := exec.Command("go", "version").Output()
+if err != nil {log.Fatal(err)}
+fmt.Printf("%s", cmdOut)
+```
 
 
 ## Comments
@@ -375,7 +412,9 @@ go func() {
 }()
 
 ticker.Stop()
+```
 
+```go
 c := time.Tick(5 * time.Second)
 for t := range c {
     fmt.Printf("%v\n", t)
