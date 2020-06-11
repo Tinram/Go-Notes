@@ -10,6 +10,12 @@
 
 ## blank identifier _
 
+```go
+_, f := path.Split("a/b/file.ext")
+```
+
+&ndash; returns two values *dirName* and *fileName*, but *dirName* discarded into blank identifier
+
 
 ## Bytes
 
@@ -308,14 +314,58 @@ i,j = j,i
 
 ## Typed Primitives
 
++ perhaps must useful for errors:
+
+```go
+type XErr error
+```
+
 
 ## Type Embedding
+
++ allows inclusion of anonymous field in struct:
+
+```go
+type SteeringWheel struct {}
+type Sedan struct {
+    SteeringWheel // field has no name
+}
+```
+
+&ndash; allows Sedan to access all of SteeringWheel’s methods:
+
+```go
+func (s *SteeringWheel) Turn() { ... }
+
+sedan := Sedan {
+    SteeringWheel{},
+}
+
+sedan.Turn()
+```
 
 
 ## Variables
 
+```go
+var s string = "txt"
+
+s := "txt" // short var assignment, compiler infers type (in functions only, not package level)
+```
+
++ **_** blank identifier: syntax requires var name, but logic does not
++ block level scope: braces - inner variable can access outer variables, but not vice versa
++ unassigned values: `string ""`
+
 
 ## Visibility
 
++ uppercase first character of name = *exported*  &ndash; visible and accessible outside of its own package
+
 
 ## Wait Group
+
+```go
+	import "sync"
+	sync.WaitGroup // blocks until a specified number of goroutines have finished
+```
