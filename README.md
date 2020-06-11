@@ -25,7 +25,6 @@ u := uint(f)
 
 ```go
 import ("strconv")
-var s string = "true"
 s := strconv.FormatBool(true)
 ```
 
@@ -55,8 +54,8 @@ strconv.Itoa(i)
 ## Comments
 
 ```go
-    /* */
-    //
+/* */
+//
 ```
 
 ## Compile
@@ -64,6 +63,34 @@ strconv.Itoa(i)
 
 ## Constants
 
++ number, string, or bool
++ constants without type have greater precision ~ 256 bits
+
+```go
+const s string = "x"
+```
+
+```go
+const (
+    KILO = uint64(0x400)
+    MEGA = uint64(0x100000)
+)
+```
+
+*iota* = constant generator
+
+
+```go
+type WD int
+const (
+    Sunday WD = iota // enums, start 0
+    Monday ...)
+
+const (
+    = 1 << 10 * iota)
+    kB
+    MB ...)
+```
 
 ## cpu
 
@@ -116,6 +143,10 @@ os.Exit(1)
 
 ## Export
 
+```bash
+export GOPATH=$HOME/golang
+```
+
 
 ## Files
 
@@ -143,6 +174,15 @@ E:
 
 ## hash table
 
+```go
+m := map[string]string {
+    "x": "a",
+    "y": "b",
+}
+
+m["x"] = "c"
+```
+
 
 ## Help
 
@@ -151,6 +191,7 @@ go env
 go version
 go doc <pkg>
 ```
+
 
 ## Import
 
@@ -168,6 +209,12 @@ go doc <pkg>
 
 
 ## Label
+
+```go
+x:
+    ... loop ...
+    continue x
+```
 
 
 ## Lifetimes
@@ -201,6 +248,10 @@ go doc <pkg>
 
 
 ## null byte
+
+```go
+"\x00" // string
+```
 
 
 ## Numbers
@@ -240,6 +291,10 @@ go doc <pkg>
 
 
 ## Swap
+
+```go
+i,j = j,i
+```
 
 
 ## Switch
