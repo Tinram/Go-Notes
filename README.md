@@ -388,8 +388,8 @@ fmt.Sprintf("%s took %.5f seconds", url, t)
 
 ### CSPRNG
 
-[crand](https://github.com/ammario/crand)
-[crnad ref](https://yourbasic.org/golang/crypto-rand-int/)
+[crand](https://github.com/ammario/crand)  
+[crand ref](https://yourbasic.org/golang/crypto-rand-int/)
 
 
 ## Packages
@@ -409,7 +409,7 @@ score := 32
 p := &score           // pointer assigned address
 fmt.Println(p)        // prints address
 *p = 44               // pointer dereferenced with value
-fmt.Println(score)    //updated score
+fmt.Println(score)    // updated score
 
 func f (x *int)
 fmt.Println(*x)
@@ -503,8 +503,8 @@ i,j = j,i
 
 + x.go >> x_test.go
 + compare results from the actual functions with known expected values
-+ generally: fail = conditions which are different than expected
-+ got-want test pattern &ndash; test got / want vars are the same in test fn
++ general fail conditions: different to that expected
++ got/want test pattern &ndash; test that got/want variables are the same in test function
 
 ```go
 import "testing"
