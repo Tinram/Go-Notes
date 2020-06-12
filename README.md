@@ -287,6 +287,98 @@ style:
 
 ## Functions
 
++ first class values
++ Go stack is dynamic, ~1GB: suited for recursion
+
+### example
+
+```go
+func f(x, y float64) float64 {
+	...
+	return x, y
+}
+```
+
+### anonymous / literal
+
+```go
+func() {...}
+```
++ defined at point of use, access to entire lexical environment
++ enables creation of generators
+
+
+### arguments
+
++ passed by value
++ use pointers to pass-by-reference (updates / size)
++ no arg defaults, or args by name
+
+
+### bootstrap / auto exec
+
+```go
+func init() {...}
+```
+
+
+### defer
+
++ deferred function executed when containing function exits
++ args for defer evaluated when defer statement is evaluated (not when function executes)
++ multiple defers executed in reverse order
+
+
+### multiple returns
+
+```go
+func f() (int, string) {
+	return i, s
+}
+q, p: = f()
+```
+
+
+### receiver
+
+```go
+type day string
+func (d day) printDay() {
+	fmt.Println(d)
+}
+var d day = "Monday"
+d.printDay()
+```
+
+
+### recursive
+
+```go
+func f() {
+	...
+	return f()
+```
+
+
+### variadic
+
+```go
+func f (vals ...int) int {
+```
+
+
+# named return values
+
+(aka *bare return*)
+
+```go
+func f() (x, y string) {
+	x = ...
+	y = ...
+	return
+}
+```
+
 
 ## Goroutines
 
@@ -533,6 +625,31 @@ i,j = j,i
 
 
 ## Switch
+
+```go
+switch result.ResponseCode {
+	case 200, 203:
+	...
+	default:
+	...
+}
+```
+
+(no break keyword, else use `fallthrough`)
+
+
+### Type Switch
+
+```go
+switch x.(type) {
+	case int, uint: ...
+```
+
+bind:
+
+```go
+switch x := x.(type) {...}
+```
 
 
 ## Testing
