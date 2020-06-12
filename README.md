@@ -4,9 +4,9 @@
 
 ## Arrays
 
-+ after initialisation &ndash; fixed length, static
-+ are values (not pointers) &ndash; passed to a function by value (to change original array, use pointer )
-+ not multi-dimensional &ndash; use arrays of arrays or slices of slices
++ after initialisation: fixed length, static
++ are values (not pointers): passed to function by value (change original array: use pointer)
++ not multi-dimensional (use arrays of arrays or slices of slices)
 + comparable using `==`
 
 ```go
@@ -271,6 +271,19 @@ export GOPATH=$HOME/golang
 
 ## Format
 
+```bash
+gofmt <file>        # to stdout
+      -d diff
+      -w (re)write file
+```
+
+style:
+
++ tabs
++ CamelCase variables
++ Caps public
++ filenames: file_format.go
+
 
 ## Functions
 
@@ -429,7 +442,7 @@ fmt.Sprintf()
 
 ```go
 log.Printf()                 // timestamp
-%+v                          // fieldnames within struct
+%+v                          // field names within struct
 ```
 
 ## Printf
