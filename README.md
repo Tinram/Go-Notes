@@ -96,7 +96,7 @@ strconv.Itoa(i)
 
 ```go
 /*
-	#include <stdlib.h>
+#include <stdlib.h>
 */
 import "C"
 ```
@@ -374,6 +374,23 @@ x:
 
 ## Numbers
 
+```go
+import "math/rand"
+
+rand.Int()
+rand.Float64() * 5
+rand.Seed(time.Now().Unix())
+
+randNum := rand.Int() % len(a)
+
+fmt.Sprintf("%s took %.5f seconds", url, t)
+```
+
+### CSPRNG
+
+[crand](https://github.com/ammario/crand)
+[crnad ref](https://yourbasic.org/golang/crypto-rand-int/)
+
 
 ## Packages
 
@@ -383,6 +400,20 @@ go list <pkg>
 
 
 ## Pointers
+
+```go
+&x                    // address of x
+*int                  // pointer to int
+
+score := 32
+p := &score           // pointer assigned address
+fmt.Println(p)        // prints address
+*p = 44               // pointer dereferenced with value
+fmt.Println(score)    //updated score
+
+func f (x *int)
+fmt.Println(*x)
+```
 
 
 ## Print
