@@ -27,7 +27,14 @@ for index, value := range a {
 
 ## Benchmarking
 
-- see **Testing**
+```go
+import "testing"
+func BenchmarkNAME(b *testing.B) { ...
+```
+
+```bash
+go test -bench=.    # or filename
+```
 
 
 ## blank identifier _
@@ -347,6 +354,14 @@ x:
 ## Profiling
 
 
+## Reflection
+
+```go
+import "reflect"
+reflect.DeepEqual(x, y)
+```
+
+
 ## Regex
 
 
@@ -460,6 +475,17 @@ sedan := Sedan {
 }
 
 sedan.Turn()
+```
+
+
+## Unsafe
+
++ low-level access outside Go env safety net
+
+```go
+import "unsafe"
+unsafe.Sizeof()
+unsafe.Pointer()
 ```
 
 
