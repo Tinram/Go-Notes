@@ -418,8 +418,27 @@ fmt.Println(*x)
 
 ## Print
 
+```go
+import "fmt"
+
+fmt.Println()
+fmt.Printf("txt is %v", s)    // %v default
+fmt.FPrintf()
+fmt.Sprintf()
+```
+
+```go
+log.Printf()                 // timestamp
+%+v                          // fieldnames within struct
+```
 
 ## Printf
+
+```go
+%x    hex
+%t    boolean
+%T    type
+```
 
 
 ## Profiling
@@ -481,6 +500,10 @@ reflect.DeepEqual(x, y)
 
 
 ## Sorting
+
+```go
+sort.Strings(sl)
+```
 
 
 ## Strings
