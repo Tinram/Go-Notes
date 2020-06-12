@@ -162,7 +162,7 @@ go run x.go
 ```bash
 go build -x x.go                          # verbose
 go build -gcflags -m                      # analysis
-go build -ldflags="-s -w" x.go            # reduced exe size
+go build -ldflags="-s -w" x.go            # reduce exe size
 go tool compile -help                     # compile flags
 ```
 
@@ -194,7 +194,7 @@ const (
 ```go
 type WD int
 const (
-	Sunday WD = iota // enums, start 0
+	Sunday WD = iota    // enums, start 0
 	Monday ...)
 
 const (
@@ -281,7 +281,7 @@ style:
 
 + tabs
 + CamelCase variables
-+ Caps public
++ Caps public visibility
 + filenames: file_format.go
 
 
@@ -311,7 +311,7 @@ func() {...}
 ### arguments
 
 + passed by value
-+ use pointers to pass-by-reference (updates / size)
++ use pointers to pass args by reference (updates / size)
 + no arg defaults, or args by name
 
 
@@ -367,7 +367,7 @@ func f (vals ...int) int {
 ```
 
 
-# named return values
+### named return values
 
 (aka *bare return*)
 
