@@ -90,12 +90,24 @@ strconv.Itoa(i)
 ### buffered
 
 
+## C modules
+
++ `go build` pre-processes with cgo
+
+```go
+/*
+	#include <stdlib.h>
+*/
+import "C"
+```
+
+
 ## cmd-line
 
 ```go
 import "os"
 for i, arg := range os.Args {
-    fmt.Println("arg", i, "=", arg)
+	fmt.Println("arg", i, "=", arg)
 ```
 
 ```go
@@ -111,7 +123,7 @@ flag.Parse()
 fmt.Println("val of s:", *s)
 
 flag.Usage = "func() {
-    fmt.Fprintln(os.Stderr, "txt")
+	fmt.Fprintln(os.Stderr, "txt")
 ```
 
 ### sub commands
@@ -119,7 +131,7 @@ flag.Usage = "func() {
 ```go
 x := flag.NewFlagSet("clone", flag.ExitOnError)
 switch os.Args[1] {
-    case "clone": ...
+	case "clone": ...
 ```
 
 
@@ -142,6 +154,23 @@ fmt.Printf("%s", cmdOut)
 
 ## Compile
 
+```bash
+go build x.go
+go run x.go
+```
+
+```bash
+go build -x x.go                          # verbose
+go build -gcflags -m                      # analysis
+go build -ldflags="-s -w" x.go            # reduced exe size
+go tool compile -help                     # compile flags
+```
+
+```bash
+GOOS=linux GOARCH=386 go build x.go       # x32
+GOOS=window GOARCH=amd64 go build x.go    # Win
+```
+
 
 ## Constants
 
@@ -154,8 +183,8 @@ const s string = "x"
 
 ```go
 const (
-    KILO = uint64(0x400)
-    MEGA = uint64(0x100000)
+	KILO = uint64(0x400)
+	MEGA = uint64(0x100000)
 )
 ```
 
@@ -165,13 +194,13 @@ const (
 ```go
 type WD int
 const (
-    Sunday WD = iota // enums, start 0
-    Monday ...)
+	Sunday WD = iota // enums, start 0
+	Monday ...)
 
 const (
-    = 1 << 10 * iota)
-    kB
-    MB ...)
+	= 1 << 10 * iota)
+	kB
+	MB ...)
 ```
 
 ## cpu
@@ -205,7 +234,14 @@ dlv debug x.go
 gdb x
 ```
 
+
 ## Documentation
+
+```bash
+go doc <pkg>                      # display docs
+go doc <pkg>.<member>.<method>
+go doc -h -http :8000
+```
 
 
 ## Encapsulation
@@ -258,8 +294,8 @@ E:
 
 ```go
 m := map[string]string {
-    "x": "a",
-    "y": "b",
+	"x": "a",
+	"y": "b",
 }
 
 m["x"] = "c"
@@ -294,8 +330,8 @@ go doc <pkg>
 
 ```go
 x:
-    ... loop ...
-    continue x
+... loop ...
+	continue x
 ```
 
 
@@ -341,6 +377,10 @@ x:
 
 ## Packages
 
+```bash
+go list <pkg>
+```
+
 
 ## Pointers
 
@@ -352,6 +392,44 @@ x:
 
 
 ## Profiling
+
+```bash
+go tool pprof
+```
+
+```bash
+go test -cpuprofile=cpu.log
+go test -blockprofile=bp.log
+go test -memprofile=mem.log
+
+go tool pprof -text -nodecount=10 ./x cpu.log
+```
+
+----
+
+
+```bash
+go get github.com/pkg/profile
+```
+
+```go
+import "github.com/pkg/profile"
+defer profile.Start().Stop()
+...
+defer profile.Start(profile.MemProfile).Stop()
+```
+
+[Profiling Go Programs](https://blog.golang.org/pprof)
+
+
+## Race Detection
+
+```bash
+go test -race x
+go run -race x.go
+```
+
+[Go Race Detector](https://blog.golang.org/race-detector)
 
 
 ## Reflection
@@ -392,6 +470,30 @@ i,j = j,i
 
 ## Testing
 
++ x.go >> x_test.go
++ compare results from the actual functions with known expected values
++ generally: fail = conditions which are different than expected
++ got-want test pattern &ndash; test got / want vars are the same in test fn
+
+```go
+import "testing"
+func TestNAME(t *Testing.T) {
+	...
+	t.Fatalf("msg")
+	t.Errorf("expecting 4, got %f", actual)
+```
+
+```bash
+go test -v
+
+go test -run=coverage -coverprofile=c.out <x>
+        -cover <x>
+        -race <x>
+```
+
+```bash
+go tool cover -html=c.out
+```
 
 ## Time
 
@@ -420,10 +522,10 @@ fmt.Printf("\nDone.\nElapsed: %v\n", time.Since(start))
 ticker := time.NewTicker(time.Millisecond * 100)
 
 go func() {
-    for {
-        <-ticker.C
-        fmt.Print(".")
-    }
+	for {
+		<-ticker.C
+		fmt.Print(".")
+	}
 }()
 
 ticker.Stop()
@@ -432,7 +534,7 @@ ticker.Stop()
 ```go
 c := time.Tick(5 * time.Second)
 for t := range c {
-    fmt.Printf("%v\n", t)
+	fmt.Printf("%v\n", t)
 }
 ```
 
@@ -440,8 +542,8 @@ for t := range c {
 
 ```go
 for {
-    select {
-        case <-time.After(2 * time.Second): ...
+	select {
+		case <-time.After(2 * time.Second): ...
 ```
 
 
@@ -461,7 +563,7 @@ type XErr error
 ```go
 type SteeringWheel struct {}
 type Sedan struct {
-    SteeringWheel            // field has no name
+	SteeringWheel            // field has no name
 }
 ```
 
@@ -471,7 +573,7 @@ type Sedan struct {
 func (s *SteeringWheel) Turn() { ... }
 
 sedan := Sedan {
-    SteeringWheel{},
+	SteeringWheel{},
 }
 
 sedan.Turn()
@@ -504,7 +606,7 @@ s := "txt"            // short var assignment, compiler infers type (in function
 
 ## Visibility
 
-+ uppercase first character of name = *exported*  &ndash; visible and accessible outside of its own package
++ uppercase first character of name = *exported* &ndash; visible and accessible outside of its own package
 
 
 ## Wait Group
