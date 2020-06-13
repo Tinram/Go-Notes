@@ -212,6 +212,15 @@ numCPUs := runtime.NumCPU()
 
 ## Crypto
 
+```go
+import "crypto"
+```
+
++ AES
++ HMAC
++ MD5, SHA1, SHA256, SHA512
++ CSPRNG
+
 
 ## Databases
 
@@ -272,7 +281,7 @@ export GOPATH=$HOME/golang
 ## Format
 
 ```bash
-gofmt <file>        # to stdout
+gofmt <file>            # to stdout
       -d diff
       -w (re)write file
 ```
@@ -453,11 +462,22 @@ x:
 
 ## Lifetimes
 
++ range of time in execution that variable can be referenced (reachability)
+    + unreachable -> garbage collected
++ at package level
++ run-time; *cf* scope = compile-time
+
 
 ## Links
 
 
 ## Lint
+
+```bash
+golint x.go
+```
+
+[Go Critic](github.com/go-critic/go-critic)
 
 
 ## Lock
@@ -508,16 +528,16 @@ fmt.Sprintf("%s took %.5f seconds", url, t)
 import "math/cmplx"
 ```
 
-### CSPRNG
-
-[crand](https://github.com/ammario/crand)  
-[crand ref](https://yourbasic.org/golang/crypto-rand-int/)
-
 
 ## Packages
 
 ```bash
 go list <pkg>
+```
+
+```bash
+go vet
+go fix
 ```
 
 
@@ -783,7 +803,7 @@ sedan.Turn()
 
 ## Unsafe
 
-+ low-level access outside Go env safety net
++ low-level access outside Go environment safety net
 
 ```go
 import "unsafe"
