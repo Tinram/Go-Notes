@@ -255,11 +255,32 @@ go doc -h -http :8000
 
 ## Encapsulation
 
++ encapsulated: inaccessible to clients of object (visibility)
++ name-based: unit of encapsulation is package (not type)
++ to encapsulate an object, make it a struct
++ fields of struct type visible to all code in same package
+
 
 ## Encoding
 
 
 ## Errors
+
++ error type `nil` if no error in execution
++ error handling occurs in callee
+
+```go
+if err != nil {
+	fmt.Println(err)
+	// or perhaps a panic() ...
+```
+
+`recover()` can be used to catch/intercept a panic in a deferred function
+
+```go
+import "errors"
+// provides functions to manipulate errors
+```
 
 
 ## exit
