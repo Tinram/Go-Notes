@@ -416,6 +416,17 @@ go doc <pkg>
 ```
 
 
+## Images
+
+```go
+import(
+	"image"
+	"image/color"
+	"image/png"
+)
+```
+
+
 ## Import
 
 
@@ -489,6 +500,12 @@ rand.Seed(time.Now().Unix())
 randNum := rand.Int() % len(a)
 
 fmt.Sprintf("%s took %.5f seconds", url, t)
+```
+
+### complex
+
+```go
+import "math/cmplx"
 ```
 
 ### CSPRNG
