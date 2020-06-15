@@ -459,11 +459,40 @@ import(
 
 ## Import
 
+```go
+import _ "xyz"     // aliasing package qualifier to _ so none of its exported names are visible
+import . "xyz"     // imports package into your namespace - get rid of fmt prefix etc
+```
+
 
 ## Input
 
+```go
+var input string
+fmt.Scanln(&input)
+```
+
 
 ## Install
+
+### standalone
+
+[https://golang.org/doc/install](https://golang.org/doc/install)
+
+```bash
+tar -C /usr/local -xzf go$VERSION.$OS-$ARCH.tar.gz
+$HOME/.profile >> export PATH=$PATH:/usr/local/go/bin
+```
+
+### install
+
+*avoid outdated repo:*
+
+```bash
+sudo add-apt-repository ppa:longsleep/golang-backports
+sudo apt-get update
+sudo apt-get install golang-go
+```
 
 
 ## Interfaces
