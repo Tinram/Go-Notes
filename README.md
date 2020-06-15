@@ -504,7 +504,36 @@ golint x.go
 ## Lock
 
 
+```go
+import "sync"
+
+var hits struct {
+	sync.Mutex
+	n int
+}
+
+hits.Lock()
+hits.n++
+hits.Unlock()
+```
+
+
 ## Logging
+
+```go
+import "log"
+
+log.Printf("txt") // terminal
+log.Fatal("txt")
+
+f, err := os.OpenFile("f.log", os.O_APPEND|os.O_CREATE|os.O_RDWR, 0666)
+if err != nil {
+	log.Fatal(err)
+}
+defer f.Close()
+log.SetOutput(f)
+log.Printf("txt")
+```
 
 
 ## Loops
