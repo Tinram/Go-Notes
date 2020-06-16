@@ -9,12 +9,14 @@
 + not multi-dimensional (use arrays of arrays or slices of slices)
 + comparable using `==`
 
+
 ```go
-var a[3] int
+var a[3] int                        // 3 ints, initialised to zero
 a[0] = 1
 a[len(a)-1]                         // last element
 var a[3] int = [3] int {1, 2, 3}    // array literal
 a := [...] int {1, 2, 3}            // ellipsis: compiler calculates length
+a2 := a                             // copy
 
 a := [2] string {"send", "rcvd"}
 for index, value := range a {
@@ -221,8 +223,10 @@ import "crypto"
 + HMAC
 + MD5, SHA1, SHA256, SHA512
 + CSPRNG
++ RSA
++ x509
 
-also:
+also:  
 [x/crypto](golang.org/x/crypto)
 
 
@@ -283,7 +287,11 @@ if err != nil {
 
 ```go
 import "errors"
-// provides functions to manipulate errors
+// provides many functions to manipulate errors
+
+errors.Wrap(err, "msg")
+
+errors.Cause(err).(type)
 ```
 
 
@@ -301,6 +309,12 @@ export GOPATH=$HOME/golang
 
 
 ## Files
+
+```go
+file, _ := os.Create("x.txt")
+fmt.Fprint(file, "msg")
+file.Close()
+```
 
 
 ## Format
@@ -371,6 +385,10 @@ func f() (int, string) {
 }
 q, p: = f()
 ```
+
+### errors
+
+By convention, for functions that can fail, last argument should be error object.
 
 
 ### receiver
@@ -654,6 +672,8 @@ fmt.Println(score)    // updated score
 func f (x *int)
 fmt.Println(*x)
 ```
+
++ no pointer arithmetic
 
 
 ## Print
