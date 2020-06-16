@@ -311,9 +311,20 @@ export GOPATH=$HOME/golang
 ## Files
 
 ```go
-file, _ := os.Create("x.txt")
-fmt.Fprint(file, "msg")
-file.Close()
+import "os"
+f, _ := os.Create("x.txt")
+fmt.Fprint(f, "msg")
+f.Close()
+
+f, err := os.Open("x.txt")
+if err != nil { ... }
+f.Close()
+```
+
+```go
+import "io/ioutil"
+f, err := ioutil.ReadFile("f.dat")
+if err != nil ( ...
 ```
 
 
@@ -325,7 +336,7 @@ gofmt <file>            # to stdout
       -w (re)write file
 ```
 
-style:
+### style
 
 + tabs
 + CamelCase variables
@@ -605,7 +616,7 @@ log.Printf("txt")
 go mod init <module>
 ```
 
-Create a new module in the current directory (*go.mod*)
+&ndash; create a new module in the current directory (*go.mod*)
 
 
 ## Net
