@@ -210,6 +210,7 @@ import "runtime"
 numCPUs := runtime.NumCPU()
 ```
 
+
 ## Crypto
 
 ```go
@@ -220,6 +221,9 @@ import "crypto"
 + HMAC
 + MD5, SHA1, SHA256, SHA512
 + CSPRNG
+
+also:
+[x/crypto](golang.org/x/crypto)
 
 
 ## Databases
@@ -577,6 +581,15 @@ log.Printf("txt")
 ## misc
 
 
+## Modules
+
+```bash
+go mod init <module>
+```
+
+Create a new module in the current directory (*go.mod*)
+
+
 ## Net
 
 
@@ -605,6 +618,12 @@ fmt.Sprintf("%s took %.5f seconds", url, t)
 
 ```go
 import "math/cmplx"
+```
+
+### csprng
+
+```go
+import "crypto/rand"
 ```
 
 
