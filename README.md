@@ -84,12 +84,106 @@ strconv.Itoa(i)
 + usage: define channel, use goroutine passing channel reference, process message returned
 + channel connecting goroutines together &ndash; output to input = pipeline
 
-...
 
 ### unbuffered
 
+```go
+c := make(chan string)    // create channel of type string
+c <- "txt"                // send to c
+msg := <-c                // receive from c
+```
+
++ blocks immediately after send operation until item received
++ stronger sync guarantees than with buffered channel &ndash; every send with corresponding receive
+
 
 ### buffered
+
+```go
+c := make(chan string, 2)    // 2 messages
+c <- "x"
+c <- "y"
+close(c)
+receiver(c)                  // blocking action until complete
+```
+
++ can receive up to N items after which send operations will block until channel is drained by at least n-1 item
++ if channel full, goroutine blocked until space available; sync operations decoupled
++ when main() executes `<–c`, waits for value to be sent
++ when goroutine function executes `c <– value`, waits for receiver
++ both sender and receiver must be ready to communicate, otherwise wait &ndash; channels both communicate and synchronise, yet even if buffered, are blocking &ndash; however, explicit non-blocking channels are created using `select`
+
+
+### deadlocks
+
++ strategy to avoid deadlock (unbuffered or buffered): place send operations in own goroutine and avoid blocking main()
+
+```go
+func main() {
+	c := make(chan int)
+	go func() {
+		c <- 5  // send 5
+	}()
+	fmt.Println(<- c) // receive 5
+}
+```
+
+
+### closed
+
++ closed channel is not testable
+
+but:
+
+```go
+x, ok := <- c
+if !ok {break{    // channel was closed and drained
+```
+
+more common:
+```go
+for x ... {c <- x}
+close(c)
+```
+
++ only necessary to close channel when important to tell receiving goroutine that all data is sent
+
+
+### function arguments
+
+```go
+fn x (m <- chan string)    // read-only within function
+fn x (m chan <- string)    // write-only
+fn x (m chan string)       // read-write
+```
+
+
+### select
+
++ cannot receive from each channel = whichever operation tried first will block until completion: need multiplex = `select`
++ creates series of receivers / conditionals for channels
++ makes goroutine wait on multiple communication operations
++ blocks until one of its cases can run, then executes that case; chooses one at random if multiple cases are ready
++ for where only first goroutine returned is acted upon
+
+```go
+select {
+	case msg1 := <-ch1: ...
+	case msg2 := <-ch2: ...
+	case <-time.After(500 * time.Millisecond):    // timeout if no messages received
+	default: ...
+```
+
+
+### quit pattern
+
++ timeout
++ kill switch:
+```go
+for {
+	select {
+		case <- stop: ...
+```
 
 
 ## C modules
@@ -494,7 +588,7 @@ import(
 
 ```go
 import _ "xyz"     // aliasing package qualifier to _ so none of its exported names are visible
-import . "xyz"     // imports package into your namespace - get rid of fmt prefix etc
+import . "xyz"     // imports package into your namespace: get rid of fmt prefix etc
 ```
 
 
@@ -950,7 +1044,7 @@ s := "txt"            // short var assignment, compiler infers type (in function
 ```
 
 + **_** blank identifier: syntax requires var name, but logic does not
-+ block level scope: braces - inner variable can access outer variables, but not vice versa
++ block level scope: braces &ndash; inner variable can access outer variables, but not vice versa
 + unassigned values: `string ""`
 
 
