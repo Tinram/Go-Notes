@@ -188,7 +188,7 @@ for {
 
 ## C modules
 
-+ `go build` pre-processes with cgo
++ `go build` pre-processes with *cgo*
 
 ```go
 /*
@@ -627,6 +627,22 @@ sudo apt-get install golang-go
 
 ## JSON
 
+```go
+json.Marshal()
+json.Unmarshal()
+```
+```go
+textBytes := []byte(json)
+people := people{}
+err := json.Unmarshal(textBytes, &people)
+```
+
+```go
+values := map[string]string{"x": "x", "y": "y"}
+jsonValue, _ := json.Marshal(values)
+resp, err := client.Post(url, "application/json", bytes.NewBuffer(jsonValue))
+```
+
 
 ## Label
 
@@ -658,7 +674,6 @@ golint x.go
 
 
 ## Lock
-
 
 ```go
 import "sync"
@@ -711,6 +726,31 @@ go mod init <module>
 ```
 
 &ndash; create a new module in the current directory (*go.mod*)
+
+
+## Mutexes
+
++ make sure both mutex, and guarded vars, are not exported
+
+`RLock()` &ndash; readers / shared
+
+`sync.Once` &ndash; for initialisation / all goroutines observe variable state:
+
+```go
+var x sync.Once
+x.Do(...)
+```
+
+### defer
+
++ ensures an unlock is not forgotten within a function and does not get in the way of a `return`
+
+```go
+	...
+	defer mu.Unlock()
+	return x
+}
+```
 
 
 ## Net
