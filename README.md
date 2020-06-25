@@ -930,10 +930,86 @@ sort.Strings(sl)
 
 ## Strings
 
+...
 
 ## Structs
 
++ dynamic values
++ can be nested
++ data fields in lowercase will not be encoded
++ may contain mixture of unexported and exported fields
++ can be used as a key of map
++ data structure to JSON = marshalling -> byte slice
 
+```go
+type Movie struct {    // uppercase names and elements = public
+	Name string        // no commas
+	Rating float32
+}
+
+m := Movie {
+	Name: "Citizen Kane",
+	Rating: 9.8,      // comma required
+	}
+
+m := new(Movie)
+m.Name = "Metropolis"
+c := Movie{Name: "x", Rating: 0,}
+```
+
+----
+
+```go
+type Point Struct {X, Y int} // struct literal, type 1
+p := Point {1, 2}
+p := &Point {1, 2} = p := new(Point); *p = Point {1, 2}
+
+a := gif.GIF {loopCount: n} // type 2
+```
+
+---
+
+```go
+type s struct {
+	t string
+	b string
+}
+
+a := test{t: "a", b: "body a"}
+var arr []s
+arr = append(arr, a)
+fmt.Println(arr)
+
+```
+
+----
+
+### copy
+
+```go
+s1 := s2                  // by val
+s2 := &s1                 // by ref
+fmt.Printf("%" + v, *s2)
+```
+
+### compare
+
+structs of same type can be compared with `==`
+
+default values: through constructor:
+
+```go
+type Alarm struct {
+	Time string
+}
+
+func NewAlarm(time string) Alarm {
+	a := Alarm {
+		Time: time,
+	}
+	return a
+}
+```
 
 
 ## Swap
