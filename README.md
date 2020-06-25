@@ -897,8 +897,25 @@ reflect.DeepEqual(x, y)
 
 ## Regex
 
+```go
+import "regexp"
+
+x := regexp.MatchString("p([a-z]+)ch", "peach")
+
+re := regexp.MustCompile(`<a\s[^>]*href=\"([^\"]*)\"[^>]*>(.*)<\/a>`) // panics if cannot compile
+fmt.Println(re.MatchString(s))
+
+r, _ := regexp.Compile("p([a-z]+)ch") // error if cannot compile
+r.MatchString("peach"))
+r.FindStringIndex("peach punch"))
+r.FindAllString("peach punch pinch", -1)
+r.ReplaceAllString("a peach", "<fruit>")
+```
+
 
 ## Resources
+
++ open files and network connections should be closed explicitly
 
 
 ## Slices
@@ -915,6 +932,8 @@ sort.Strings(sl)
 
 
 ## Structs
+
+
 
 
 ## Swap
