@@ -335,8 +335,9 @@ also:
     + channels, functions, maps, channels, pointers, slices
 + **interface**
 
-type |  | zero value
-:- | | -: |
+
+datatype | | zero value
+:- | :-: | -: |
 bool | | false
 byte (uint8) | |
 int, int8, int16, int32, int64 | | 0
