@@ -326,8 +326,12 @@ also:
 
 ## Databases
 
+...
+
 
 ## Datatypes
+
+...
 
 
 ## Debugging
@@ -539,8 +543,12 @@ func f() (x, y string) {
 
 ## Goroutines
 
+...
+
 
 ## gotchas
+
+...
 
 
 ## goto
@@ -624,6 +632,8 @@ sudo apt-get install golang-go
 
 ## Interfaces
 
+...
+
 
 ## JSON
 
@@ -662,6 +672,9 @@ x:
 
 
 ## Links
+
+...
+
 
 
 ## Lint
@@ -737,11 +750,64 @@ break
 
 ## Maps
 
+...
+
 
 ## Methods
 
++ are really functions that require a receiver
++ no `this` or `self` for receiver
++ receiver argument appears before method name
++ can define methods for any types e.g. slices (Go is rather unusual)
++ method sets: multiple methods associated with the struct
+
+
+```go
+type Movie struct { ... }
+
+func (m *Movie summary() string { ...    // makes summary method available for any Movie instance
+         // ^ receiver - by pointer or val
+		 // pointer can modify elems within original struct: use to modify original init of struct
+
+```
++ ideal usage: sphere struct, surface area & volume methods
+
+
+----
+
+
+```go
+type car struct {
+	make,
+	model string
+}
+
+func (c *car) drive() {
+	fmt.Println("driving a", c.make, c.model)
+}
+
+func main() {
+	ford := &car {make:  "Ford", model: "F150",}
+	ford.drive()
+}
+```
+
+----
+
+
+```go
+type Point struct {...}
+func (p Point) Distance (q Point) ...    // traditional: function Distance(p, q, Point)
+p.Distance(q)
+// p called method's receiver
+distance := Point.Distance // method expression
+fmt.Prinln(distance(p, q))
+```
+
 
 ## misc
+
+`;` multiple statements
 
 
 ## Modules
@@ -776,9 +842,6 @@ x.Do(...)
 	return x
 }
 ```
-
-
-## Net
 
 
 ## null byte
@@ -945,6 +1008,8 @@ r.ReplaceAllString("a peach", "<fruit>")
 
 ## Slices
 
+...
+
 
 ## Sorting
 
@@ -956,6 +1021,7 @@ sort.Strings(sl)
 ## Strings
 
 ...
+
 
 ## Structs
 
