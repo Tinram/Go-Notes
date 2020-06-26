@@ -709,6 +709,31 @@ log.Printf("txt")
 
 ## Loops
 
+```go
+for <cond> {                    // while
+for {}                          // infinite
+
+for v := range x {              // index
+for _, v := range x {           //value
+
+for i < 10
+for i := 0; i < 10; i++ {
+
+nums := [] int {1, 2, 3}
+for i,n := range nums {
+
+for _, u := range sl {          // iterate over slice
+
+b := []string{"a", "b", "c"}
+a = append(a, b...)             // variadic argument expands b to all members - avoids for...range loop
+
+continue
+break
+```
+
++ only postfix i++, no prefix
++ scope: beware of 'iteration variable capture' &ndash' inner var copy needed for correct operation
+
 
 ## Maps
 
