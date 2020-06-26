@@ -789,7 +789,40 @@ break
 
 ## Maps
 
-...
++ set of key/value pairs
+    + key: any type that can be compared with `==`
+    + value: any type
++ unordered, 'associative array'
++ accessed by key
++ dynamic
++ elements not addressable (slice elements are) &ndash; use temporary variable as fix
+
+
+```go
+m := make(map[string] int)            // key = string, value = int
+m["k"] = 1
+fmt.Println(m["k"])
+delete(m, "k")
+a, ok := m["k"]                       // test if key "k" present and retrieve if so
+if !ok { ...                          // ok = bool
+
+sk = strings: sort.Strings(m)
+
+for k, v := range m {                 // iterate over map content
+	...
+}
+```
+
+### map literal
+
+```go
+ratings := map[string][]int {
+	"men":   {32, 55},
+	"women": {44, 42},
+}
+
+map [T} bool // set
+```
 
 
 ## Methods
