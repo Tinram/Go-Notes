@@ -575,7 +575,10 @@ func f() (x, y string) {
 
 ## gotchas
 
-...
++ call any method on zero value = panic
++ no immutable data structures
++ channels do not prevent race conditions because Go lacks immutability
++ [gotchas and mistakes](devs.cloudimmunity.com/gotchas-and-common-mistakes-in-go-golang/)
 
 
 ## goto
@@ -646,9 +649,9 @@ tar -C /usr/local -xzf go$VERSION.$OS-$ARCH.tar.gz
 $HOME/.profile >> export PATH=$PATH:/usr/local/go/bin
 ```
 
-### install
+### golang repo
 
-*avoid outdated repo:*
+*avoid outdated distro repo:*
 
 ```bash
 sudo add-apt-repository ppa:longsleep/golang-backports
@@ -659,7 +662,16 @@ sudo apt-get install golang-go
 
 ## Interfaces
 
-...
++ specifies method set
+
+```go
+type Robot interface {
+	PowerOn() err
+}
+
+type T850 struct {Name string}
+func (a *T850 PowerOn() err {return nil}
+```
 
 
 ## JSON
