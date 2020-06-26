@@ -324,14 +324,40 @@ also:
 [x/crypto](golang.org/x/crypto)
 
 
-## Databases
-
-...
-
-
 ## Datatypes
 
-...
+4 categories:
+
++ **basic**
++ **aggregate**
+    + arrays, structs
++ **reference**
+    + channels, functions, maps, channels, pointers, slices
++ **interface**
+
+type |  | zero value
+:- | | -: |
+bool | | false
+byte (uint8) | |
+int, int8, int16, int32, int64 | | 0
+uint, uint8, uint16, uint32, uint64, uintptr | | 0
+float32, float64, complex64, complex128 | | 0.0
+string | | ""
+rune (int32, Unicode char) | |
+error | |
+func, pointer, slice, map, channel | | nil
+
+
+### reflection
+
+```go
+import "reflect"
+fmt.Println(reflect.TypeOf(x))
+```
+
+### constants
+
+true, false, iota, nil
 
 
 ## Debugging
