@@ -1080,7 +1080,64 @@ r.ReplaceAllString("a peach", "<fruit>")
 
 ## Slices
 
-...
++ dynamic, variable-length
++ all elements same datatype
++ basically pointers to underlying array &ndash; like ArrayList
+    + multiple slices can share same underlying array
++ not comparable
+    + but bytes.Equal for byte slices
++ 3 components: pointer, length, capacity
+    + pointer: first element if (array) that is reachable
+    + length: num slice elements, which can't exceed capacity
+    + slicing beyond capacity = panic
+    + slicing beyond len(sl) = extends slice
+
+**create:**
+
+```go
+make([]T, <len> [, cap])
+sl := [] T{}
+```
+
+```go
+len()
+cap()
+append(sl, x)     // also is delete. append() is variadic: multiple additions
+copy(dst, src)    // element from one to another of same type
+
+var sl [] string                      // nil slice
+sl := make([] int, 0)                 // empty slice: len(sl) == 0 test empty
+sl := []int {0, 1, 2, 3}              // literal: like array literal, but no size given
+m := []string {1: "Jan", ...}         // => 0
+sl := make([]byte, 5)                 // 5 bytes
+
+sl := make([] string, 1)
+sl[0] = "txt"
+sl = append(sl, "txt2" [, "txt3"])    // append() is variadic - multiple additions
+
+sl,append(sl[:2], sl[2+1:...)         // delete element 2
+
+summer := months[5:8]                 // from existing slice (or array)
+c := append(a, b...)                  // concat slices a and b
+
+a:= [2]string {"Лайка", "Белка"}      // array
+sl := a[:]                            // whole slice of a
+
+sl[i:j]                               // i to j - 1, if j omitted = len(s)
+sl[:]                                 // whole
+s[:5]                                 // extended slice (within capacity)
+
+x := 2; y := 4
+table := make([][]int, x)
+for i:= range table {table[i] = make([]int, y)}
+
+copy(sl2, sl)                         // same type
+copy(sl2, sl[1:])                     // element 1
+
+for _, v := range sl {
+	...
+}
+```
 
 
 ## Sorting
@@ -1093,6 +1150,7 @@ sort.Strings(sl)
 ## Strings
 
 ...
+
 
 
 ## Structs
