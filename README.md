@@ -742,12 +742,6 @@ x:
 + run-time; *cf* scope = compile-time
 
 
-## Links
-
-...
-
-
-
 ## Lint
 
 ```bash
@@ -1028,6 +1022,7 @@ fmt.Sprintf()
 log.Printf()                 // timestamp
 %+v                          // field names within struct
 ```
+
 
 ## Printf
 
