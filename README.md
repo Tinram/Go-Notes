@@ -1149,8 +1149,120 @@ sort.Strings(sl)
 
 ## Strings
 
-...
++ immutable: read-only byte slices -> leading to cheap actions for copying, substrings
++ UTF-8
++ no string indexing
++ each character of type 'rune' = int32
++ string len() = num bytes (not runes) &ndash; is array of runes / bytes (length of runes versus bytes differs with multibytes)
++ main packages: bytes, strings, strconv, unicode
 
+
+| | | description
+:- | :-: | :- |
+`"..."` | | string literal, can contain escape sequences `\t`, `\xhh`
+`...` | | raw string literal, can be multi-line, no escape sequences
+`\uhhhh` | | 16-bit Unicode value
+`'\x41'` | | rune < 256 value
+`rune` | | int32 = Unicode codepoint
+
+```go
+var x string                 // defaults to ""
+
+s := `This is                // multiline (including whitespace)
+multiline`
+
++ / +=                       // concat
+len(s)                       // number of bytes, use "unicode/utf8" >> utf8.RuneCountInString(data)
+
+s[0] = "x"                   // indexing = 104 (accesses byte)
+s[0:5] - 0 to 5 chars
+fmt.Println("%q", s[0])
+
+strconv.Itoa(x)
+
+strings.Contains(h, n)
+strings.Index(h, n)
+
+strings.Count()
+
+strings.HasPrefix()          // from start
+strings.HasSuffix()          // from end
+
+strings.Join()
+strings.Split()
+
+strings.ToLower()
+
+strings.TrimSpace()
+
+strings.ReplaceAll
+
+```
+
+**index**
+
+```go
+s := err.Error()
+if strings.Index(s, "no host") > -1 { ...
+```
+
+Index returns byte value, not character  
+golang.org/x/exp/utf8string has `At()`
+
+
+```go
+var s int = strings.Index(link, strings.Join(u, ""))
+b := strings.Contains(h, n)
+```
+
+**string-indexing hack**
+```go
+x := "text"
+xbytes := []byte(x)
+xbytes[0] = 'T'
+fmt.Println(string(xbytes)) // but best to use runes
+```
+
+**runes &ndash; multi-byte**
+```go
+myString := "test test"
+r := []rune(myString)
+s := string(r[0:6])
+```
+
+**buffering**
+```go
+var buffer bytes.Buffer
+for i := 0; i < 500; i++ {
+	buffer.WriteString("z")
+}
+fmt.Println(buffer.String())
+```
+
+**string builder**
+```go
+import("bytes")
+var b bytes.Buffer
+for i := 0; i < 1000; i++ {
+	b.WriteString(randString())
+}
+fmt.Println(b.String())
+```
+
+**int to string**
+```go
+fmt.Sprintf
+// or
+import("strconv")
+s := strconv.Itoa(i)
+```
+
+**string to byte slice**
+```go
+b = []byte(s)
+byte sl to string
+s = string(b)
+```
 
 
 ## Structs
