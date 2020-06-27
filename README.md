@@ -570,7 +570,39 @@ func f() (x, y string) {
 
 ## Goroutines
 
-...
++ concurrency &ndash; avoids blocking
+
+```go
+go <slowfunc()>
+go func() { ...
+```
+
++ unbounded parallelism of goroutines &ndash; always hits a limit: OS file decriptors, DNS etc ndash; strategies required
++ suits order of events unknown
++ beware closures in goroutines &ndash; variables become shared
+
++ all anonymous goroutines functions have final `()`
++ goroutine function literal with explicit parameter in end brackets: avoids problem of loop variable capture / out-of-sync
+
++ no direct way to wait until a goroutine has finished
++ no way for one goroutine to terminate another directly (else would lead all shared variables in undefined states)
+    + solutions:
+        + broadcast mechanism: trigger, drain channels
+        + inner goroutine reports completion to outer goroutine by sending event on shared channel
+
++ data race occurs when two goroutines access the same variable concurrently and at least one of the accesses is a write
+    + data race avoidance:
+        + read-only variables
+        + variable confined to single goroutine, channels drive updates
+        + mutexes &ndash; sync package
+        ```go
+		import sync
+		var m sync.Mutex
+		m.Lock()
+		...
+		m.Unlock()```
+
++ counter that can be safely changed from muliple goroutines: `sync.WaitGroup`
 
 
 ## gotchas
@@ -893,7 +925,7 @@ go mod init <module>
 
 ## Mutexes
 
-+ make sure both mutex, and guarded vars, are not exported
++ make sure both mutex, and guarded variables, are not exported
 
 `RLock()` &ndash; readers / shared
 
@@ -1508,7 +1540,7 @@ unsafe.Pointer()
 ```go
 var s string = "txt"
 
-s := "txt"            // short var assignment, compiler infers type (in functions only, not package level)
+s := "txt"            // short assignment, compiler infers type (in functions only, not package level)
 ```
 
 + **_** blank identifier: syntax requires var name, but logic does not
