@@ -80,7 +80,7 @@ strconv.Itoa(i)
 
 + connections of same type between goroutines
 + avoid shared memory and mutexes
-+ two principal operations: send, receive
++ two main operations: send, receive
 + usage: define channel, use goroutine passing channel reference, process message returned
 + channel connecting goroutines together &ndash; output to input = pipeline
 
@@ -88,7 +88,7 @@ strconv.Itoa(i)
 ### unbuffered
 
 ```go
-c := make(chan string)    // create channel of type string
+c := make(chan string)    // create channel, datatype string
 c <- "txt"                // send to c
 msg := <-c                // receive from c
 ```
@@ -183,6 +183,13 @@ select {
 for {
 	select {
 		case <- stop: ...
+```
+
+
+### misc
+
+```go
+c := make(chan chan string)    // channel of string channels
 ```
 
 
@@ -344,7 +351,7 @@ int, int8, int16, int32, int64 | | 0
 uint, uint8, uint16, uint32, uint64, uintptr | | 0
 float32, float64, complex64, complex128 | | 0.0
 string | | ""
-rune (int32, Unicode char) | |
+rune (int32, holds Unicode char) | |
 error | |
 func, pointer, slice, map, channel | | nil
 
@@ -510,7 +517,7 @@ func init() {...}
 
 + deferred function executed when containing function exits
 + args for defer evaluated when defer statement is evaluated (not when function executes)
-+ multiple defers executed in reverse order
++ multiple defers executed in reverse order (LIFO)
 
 
 ### multiple returns
@@ -600,7 +607,8 @@ go func() { ...
 		var m sync.Mutex
 		m.Lock()
 		...
-		m.Unlock()```
+		m.Unlock()
+		```
 
 + counter that can be safely changed from muliple goroutines: `sync.WaitGroup`
 
@@ -815,19 +823,20 @@ break
 
 ## Maps
 
-+ set of key/value pairs
++ set of key / value pairs
     + key: any type that can be compared with `==`
     + value: any type
-+ unordered, 'associative array'
++ unordered 'associative array'
 + accessed by key
 + dynamic
 + elements not addressable (slice elements are) &ndash; use temporary variable as fix
 
 
 ```go
-m := make(map[string] int)            // key = string, value = int
-m["k"] = 1
+m := map[string] int{"k":1}           // key = string, value = int
+// else: m["k"] = 1
 fmt.Println(m["k"])
+
 delete(m, "k")
 a, ok := m["k"]                       // test if key "k" present and retrieve if so
 if !ok { ...                          // ok = bool
@@ -863,9 +872,9 @@ map [T} bool // set
 ```go
 type Movie struct { ... }
 
-func (m *Movie summary() string { ...    // makes summary method available for any Movie instance
-         // ^ receiver - by pointer or val
-		 // pointer can modify elems within original struct: use to modify original init of struct
+func (m *Movie) summary() string { ...    // makes summary method available for any Movie instance
+        // ^ receiver - by pointer or val
+        // pointer can modify elems within original struct: use to modify original init of struct
 
 ```
 + ideal usage: sphere struct, surface area & volume methods
@@ -885,7 +894,7 @@ func (c *car) drive() {
 }
 
 func main() {
-	ford := &car {make:  "Ford", model: "F150",}
+	ford := &car {make: "Ford", model: "F150",}
 	ford.drive()
 }
 ```
@@ -1107,7 +1116,7 @@ r.ReplaceAllString("a peach", "<fruit>")
 
 ## Slices
 
-+ dynamic, variable-length
++ dynamic size, variable-length
 + all elements same datatype
 + basically pointers to underlying array &ndash; like ArrayList
     + multiple slices can share same underlying array
@@ -1122,8 +1131,9 @@ r.ReplaceAllString("a peach", "<fruit>")
 **create:**
 
 ```go
-make([]T, <len> [, cap])
-sl := [] T{}
+sl := make([]T, <len> [, cap])
+sl := []T{}
+bs := []byte("txt")
 ```
 
 ```go
@@ -1132,17 +1142,17 @@ cap()
 append(sl, x)     // also is delete. append() is variadic: multiple additions
 copy(dst, src)    // element from one to another of same type
 
-var sl [] string                      // nil slice
+var sl = [] string                    // nil slice
 sl := make([] int, 0)                 // empty slice: len(sl) == 0 test empty
 sl := []int {0, 1, 2, 3}              // literal: like array literal, but no size given
 m := []string {1: "Jan", ...}         // => 0
 sl := make([]byte, 5)                 // 5 bytes
 
-sl := make([] string, 1)
+sl := make([]string, 1)
 sl[0] = "txt"
-sl = append(sl, "txt2" [, "txt3"])    // append() is variadic - multiple additions
+sl = append(sl, "txt2" [, "txt3"])    // append() is variadic: multiple additions
 
-sl,append(sl[:2], sl[2+1:...)         // delete element 2
+sl.append(sl[:2], sl[2+1:...)         // delete element 2
 
 summer := months[5:8]                 // from existing slice (or array)
 c := append(a, b...)                  // concat slices a and b
@@ -1303,7 +1313,7 @@ s = string(b)
 
 ```go
 type Movie struct {    // uppercase names and elements = public
-	Name string        // no commas
+	Name string        // no comma
 	Rating float32
 }
 
