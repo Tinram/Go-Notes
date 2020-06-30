@@ -16,7 +16,7 @@ a[0] = 1
 a[len(a)-1]                         // last element
 var a[3] int = [3] int {1, 2, 3}    // array literal
 a := [...] int {1, 2, 3}            // ellipsis: compiler calculates length
-a2 := a                             // copy
+a2 := a                             // copy a
 
 a := [2] string {"send", "rcvd"}
 for index, value := range a {
@@ -24,7 +24,7 @@ for index, value := range a {
 }
 ```
 
-&ndash; see **Slices**, **Maps**
+&ndash; see [Maps](#maps), [Slices](#slices)
 
 
 ## Benchmarking
@@ -109,14 +109,14 @@ receiver(c)                  // blocking action until complete
 
 + can receive up to N items after which send operations will block until channel is drained by at least n-1 item
 + if channel full, goroutine blocked until space available; sync operations decoupled
-+ when main() executes `<–c`, waits for value to be sent
++ when `main()` executes `<–c`, waits for value to be sent
 + when goroutine function executes `c <– value`, waits for receiver
 + both sender and receiver must be ready to communicate, otherwise wait &ndash; channels both communicate and synchronise, yet even if buffered, are blocking &ndash; however, explicit non-blocking channels are created using `select`
 
 
 ### deadlocks
 
-+ strategy to avoid deadlock (unbuffered or buffered): place send operations in own goroutine and avoid blocking main()
++ strategy to avoid deadlock (unbuffered or buffered): place send operations in own goroutine and avoid blocking `main()`
 
 ```go
 func main() {
@@ -137,7 +137,7 @@ but:
 
 ```go
 x, ok := <- c
-if !ok {break{    // channel was closed and drained
+if !ok {break}    // channel was closed and drained
 ```
 
 more common:
@@ -346,12 +346,12 @@ also:
 datatype | | zero value
 :- | :-: | -: |
 bool | | false
-byte (uint8) | |
+byte (uint8) | | 0
 int, int8, int16, int32, int64 | | 0
 uint, uint8, uint16, uint32, uint64, uintptr | | 0
 float32, float64, complex64, complex128 | | 0.0
 string | | ""
-rune (int32, holds Unicode char) | |
+rune (int32, holds Unicode char) | | 0
 error | |
 func, pointer, slice, map, channel | | nil
 
@@ -472,7 +472,7 @@ gofmt <file>            # to stdout
 
 + tabs
 + CamelCase variables
-+ Caps public visibility
++ Caps = public visibility
 + filenames: file_format.go
 
 
@@ -800,7 +800,7 @@ for <cond> {                    // while
 for {}                          // infinite
 
 for v := range x {              // index
-for _, v := range x {           //value
+for _, v := range x {           // value
 
 for i < 10
 for i := 0; i < 10; i++ {
@@ -820,7 +820,7 @@ break
 + only postfix i++, no prefix
 + scope: beware of 'iteration variable capture' &ndash' inner var copy needed for correct operation
 
-
+<a id="maps"></a>
 ## Maps
 
 + set of key / value pairs
@@ -1114,6 +1114,7 @@ r.ReplaceAllString("a peach", "<fruit>")
 + open files and network connections should be closed explicitly
 
 
+<a id="slices"></a>
 ## Slices
 
 + dynamic size, variable-length
@@ -1205,8 +1206,8 @@ sort.Strings(sl)
 ```go
 var x string                 // defaults to ""
 
-s := `This is                // multiline (including whitespace)
-multiline`
+s := `This is
+multiline`                   // multiline (including whitespace)
 
 + / +=                       // concat
 len(s)                       // number of bytes, use "unicode/utf8" >> utf8.RuneCountInString(data)
@@ -1313,13 +1314,13 @@ s = string(b)
 
 ```go
 type Movie struct {    // uppercase names and elements = public
-	Name string        // no comma
+	Name string    // no comma
 	Rating float32
 }
 
 m := Movie {
 	Name: "Citizen Kane",
-	Rating: 9.8,      // comma required
+	Rating: 9.8,    // comma required
 	}
 
 m := new(Movie)
@@ -1512,7 +1513,7 @@ type XErr error
 ```go
 type SteeringWheel struct {}
 type Sedan struct {
-	SteeringWheel            // field has no name
+	SteeringWheel        // field has no name
 }
 ```
 
