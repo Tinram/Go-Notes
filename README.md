@@ -122,7 +122,7 @@ receiver(c)                  // blocking action until complete
 func main() {
 	c := make(chan int)
 	go func() {
-		c <- 5  // send 5
+		c <- 5    // send 5
 	}()
 	fmt.Println(<- c) // receive 5
 }
@@ -502,8 +502,8 @@ func() {...}
 ### arguments
 
 + passed by value
-+ use pointers to pass args by reference (updates / size)
-+ no arg defaults, or args by name
++ use pointers to pass arguments by reference (updates / size)
++ no argument defaults, or arguments by name
 
 
 ### bootstrap / auto exec
@@ -516,7 +516,7 @@ func init() {...}
 ### defer
 
 + deferred function executed when containing function exits
-+ args for defer evaluated when defer statement is evaluated (not when function executes)
++ arguments for defer evaluated when defer statement is evaluated (not when function executes)
 + multiple defers executed in reverse order (LIFO)
 
 
@@ -584,7 +584,7 @@ go <slowfunc()>
 go func() { ...
 ```
 
-+ unbounded parallelism of goroutines &ndash; always hits a limit: OS file decriptors, DNS etc ndash; strategies required
++ unbounded parallelism of goroutines &ndash; always hits a limit: OS file descriptors, DNS etc &ndash; strategies required
 + suits order of events unknown
 + beware closures in goroutines &ndash; variables become shared
 
@@ -610,7 +610,7 @@ go func() { ...
 		m.Unlock()
 		```
 
-+ counter that can be safely changed from muliple goroutines: `sync.WaitGroup`
++ counter that can be safely changed from multiple goroutines: `sync.WaitGroup`
 
 
 ## gotchas
@@ -665,8 +665,8 @@ import(
 ## Import
 
 ```go
-import _ "xyz"     // aliasing package qualifier to _ so none of its exported names are visible
-import . "xyz"     // imports package into your namespace: get rid of fmt prefix etc
+import _ "xyz"    // aliasing package qualifier to _ so none of its exported names are visible
+import . "xyz"    // imports package into your namespace: get rid of fmt prefix etc
 ```
 
 
@@ -803,22 +803,22 @@ for v := range x {              // index
 for _, v := range x {           // value
 
 for i < 10
-for i := 0; i < 10; i++ {
+for i := 0; i < 10; i++ {       // traditional
 
 nums := [] int {1, 2, 3}
-for i,n := range nums {
+for i, n := range nums {
 
 for _, u := range sl {          // iterate over slice
 
 b := []string{"a", "b", "c"}
-a = append(a, b...)             // variadic argument expands b to all members - avoids for...range loop
+a = append(a, b...)             // variadic argument expands b to all members: avoids for...range loop
 
 continue
 break
 ```
 
 + only postfix i++, no prefix
-+ scope: beware of 'iteration variable capture' &ndash' inner var copy needed for correct operation
++ scope: beware of 'iteration variable capture' &ndash; inner var copy needed for correct operation
 
 <a id="maps"></a>
 ## Maps
@@ -874,7 +874,7 @@ type Movie struct { ... }
 
 func (m *Movie) summary() string { ...    // makes summary method available for any Movie instance
         // ^ receiver - by pointer or val
-        // pointer can modify elems within original struct: use to modify original init of struct
+        // pointer can modify elements within original struct: use to modify original initialisation of struct
 
 ```
 + ideal usage: sphere struct, surface area & volume methods
@@ -906,8 +906,8 @@ func main() {
 type Point struct {...}
 func (p Point) Distance (q Point) ...    // traditional: function Distance(p, q, Point)
 p.Distance(q)
-// p called method's receiver
-distance := Point.Distance // method expression
+// p calls method's receiver
+distance := Point.Distance               // method expression
 fmt.Prinln(distance(p, q))
 ```
 
@@ -1125,7 +1125,7 @@ r.ReplaceAllString("a peach", "<fruit>")
     + but bytes.Equal for byte slices
 + 3 components: pointer, length, capacity
     + pointer: first element if (array) that is reachable
-    + length: num slice elements, which can't exceed capacity
+    + length: number of slice elements, which can't exceed capacity
     + slicing beyond capacity = panic
     + slicing beyond len(sl) = extends slice
 
@@ -1192,7 +1192,7 @@ sort.Strings(sl)
 + no string indexing
 + each character of type 'rune' = int32
 + string len() = num bytes (not runes) &ndash; is array of runes / bytes (length of runes versus bytes differs with multibytes)
-+ main packages: bytes, strings, strconv, unicode
++ main packages: *bytes*, *strings*, *strconv*, *unicode*
 
 
 | | | description
@@ -1320,7 +1320,7 @@ type Movie struct {    // uppercase names and elements = public
 
 m := Movie {
 	Name: "Citizen Kane",
-	Rating: 9.8,    // comma required
+	Rating: 9.8,   // comma required
 	}
 
 m := new(Movie)
@@ -1331,7 +1331,7 @@ c := Movie{Name: "x", Rating: 0,}
 ----
 
 ```go
-type Point Struct {X, Y int} // struct literal, type 1
+type Point struct {X, Y int} // struct literal, type 1
 p := Point {1, 2}
 p := &Point {1, 2} = p := new(Point); *p = Point {1, 2}
 
