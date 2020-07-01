@@ -4,9 +4,9 @@
 
 ## Arrays
 
-+ after initialisation: fixed length, static
-+ are values (not pointers): passed to function by value (change original array: use pointer)
-+ not multi-dimensional (use arrays of arrays or slices of slices)
++ after init: fixed length, static
++ values (not pointers): passed to functions by value (else use pointer)
++ not multi-dimensional (use array of arrays, or slice of slices)
 + comparable using `==`
 
 
@@ -14,14 +14,12 @@
 var a[3] int                        // 3 ints, initialised to zero
 a[0] = 1
 a[len(a)-1]                         // last element
-var a[3] int = [3] int {1, 2, 3}    // array literal
+var a[3] int = [3] int {1, 2, 3}    // literal
 a := [...] int {1, 2, 3}            // ellipsis: compiler calculates length
 a2 := a                             // copy a
 
 a := [2] string {"send", "rcvd"}
-for index, value := range a {
-...
-}
+for index, value := range a { ...
 ```
 
 &ndash; see [Maps](#maps), [Slices](#slices)
@@ -79,7 +77,7 @@ strconv.Itoa(i)
 ## Channels
 
 + connections of same type between goroutines
-+ avoid shared memory and mutexes
++ avoids shared memory and mutexes
 + two main operations: send, receive
 + usage: define channel, use goroutine passing channel reference, process message returned
 + channel connecting goroutines together &ndash; output to input = pipeline
@@ -94,7 +92,7 @@ msg := <-c                // receive from c
 ```
 
 + blocks immediately after send operation until item received
-+ stronger sync guarantees than with buffered channel &ndash; every send with corresponding receive
++ stronger sync guarantees than with buffered channel: every send with corresponding receive
 
 
 ### buffered
@@ -419,10 +417,7 @@ if err != nil {
 
 ```go
 import "errors"
-// provides many functions to manipulate errors
-
 errors.Wrap(err, "msg")
-
 errors.Cause(err).(type)
 ```
 
@@ -780,7 +775,7 @@ hits.Unlock()
 ```go
 import "log"
 
-log.Printf("txt") // terminal
+log.Printf("txt")    // terminal
 log.Fatal("txt")
 
 f, err := os.OpenFile("f.log", os.O_APPEND|os.O_CREATE|os.O_RDWR, 0666)
@@ -1449,7 +1444,6 @@ go tool cover -html=c.out
 
 ```go
 import "time"
-
 time.Now()
 time.Parse(time.<format>)
 time.Sleep(time.Second * n)
@@ -1563,5 +1557,5 @@ s := "txt"            // short assignment, compiler infers type (in functions on
 
 ```go
 import "sync"
-sync.WaitGroup // blocks until a specified number of goroutines have finished
+sync.WaitGroup    // blocks until a specified number of goroutines have finished
 ```
