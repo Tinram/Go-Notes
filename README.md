@@ -2,6 +2,38 @@
 # Go Notes
 
 
+[Arrays](#arrays)  
+[Benchmarking](#benchmarking)  
+[Casts](#casts)  
+[Channels](#channels)  
+[cmd-line](#cmd-line)  
+[Compile](#compile)  
+[Constants](#constants)  
+[Crypto](#crypto)  
+[Datatypes](#datatypes)  
+[Debugging](#debugging)  
+[Documentation](#documentation)  
+[Errors](#errors)  
+[Functions](#functions)  
+[Goroutines](#goroutines)  
+[Installation](#installation)  
+[Interfaces](#interfaces)  
+[Loops](#loops)  
+[Maps](#maps)  
+[Methods](#methods)  
+[Numbers](#numbers)  
+[Pointers](#pointers)  
+[Profiling](#profiling)  
+[Regex](#regex)  
+[Slices](#slices)  
+[Strings](#strings)  
+[Structs](#structs)  
+[Testing](#testing)  
+[Time](#time)  
+[Variables](#variables)
+
+
+<a id="arrays"></a>
 ## Arrays
 
 + after init: fixed length, static
@@ -25,6 +57,7 @@ for index, value := range a { ...
 &ndash; see [Maps](#maps), [Slices](#slices)
 
 
+<a id="benchmarking"></a>
 ## Benchmarking
 
 ```go
@@ -52,6 +85,8 @@ _, f := path.Split("a/b/file.ext")
 'x'
 ```
 
+
+<a id="casts"></a>
 ## Casts
 
 ```go
@@ -73,7 +108,7 @@ strconv.Atoi("135")
 strconv.Itoa(i)
 ```
 
-
+<a id="channels"></a>
 ## Channels
 
 + connections of same type between goroutines
@@ -203,6 +238,7 @@ import "C"
 ```
 
 
+<a id="cmd-line"></a>
 ## cmd-line
 
 ```go
@@ -253,6 +289,8 @@ fmt.Printf("%s", cmdOut)
 //
 ```
 
+
+<a id="compile"></a>
 ## Compile
 
 ```bash
@@ -273,6 +311,7 @@ GOOS=window GOARCH=amd64 go build x.go    # Win
 ```
 
 
+<a id="constants"></a>
 ## Constants
 
 + number, string, or bool
@@ -312,6 +351,7 @@ numCPUs := runtime.NumCPU()
 ```
 
 
+<a id="crypto"></a>
 ## Crypto
 
 ```go
@@ -329,6 +369,7 @@ also:
 [x/crypto](golang.org/x/crypto)
 
 
+<a id="datatypes"></a>
 ## Datatypes
 
 4 categories:
@@ -366,6 +407,7 @@ fmt.Println(reflect.TypeOf(x))
 true, false, iota, nil
 
 
+<a id="debugging"></a>
 ## Debugging
 
 ### delve
@@ -382,6 +424,7 @@ gdb x
 ```
 
 
+<a id="documentation"></a>
 ## Documentation
 
 ```bash
@@ -399,9 +442,7 @@ go doc -h -http :8000
 + fields of struct type visible to all code in same package
 
 
-## Encoding
-
-
+<a id="errors"></a>
 ## Errors
 
 + error type `nil` if no error in execution
@@ -471,6 +512,7 @@ gofmt <file>            # to stdout
 + filenames: file_format.go
 
 
+<a id="functions"></a>
 ## Functions
 
 + first class values
@@ -570,6 +612,7 @@ func f() (x, y string) {
 ```
 
 
+<a id="goroutines"></a>
 ## Goroutines
 
 + concurrency &ndash; avoids blocking
@@ -673,7 +716,8 @@ fmt.Scanln(&input)
 ```
 
 
-## Install
+<a id="installation"></a>
+## Installation
 
 ### standalone
 
@@ -695,9 +739,10 @@ sudo apt-get install golang-go
 ```
 
 
+<a id="interfaces"></a>
 ## Interfaces
 
-+ specifies method set
++ specify method set
 
 ```go
 type Robot interface {
@@ -788,6 +833,7 @@ log.Printf("txt")
 ```
 
 
+<a id="loops"></a>
 ## Loops
 
 ```go
@@ -814,6 +860,7 @@ break
 
 + only postfix i++, no prefix
 + scope: beware of 'iteration variable capture' &ndash; inner var copy needed for correct operation
+
 
 <a id="maps"></a>
 ## Maps
@@ -855,6 +902,7 @@ map [T} bool // set
 ```
 
 
+<a id="methods"></a>
 ## Methods
 
 + are really functions that require a receiver
@@ -953,6 +1001,7 @@ x.Do(...)
 ```
 
 
+<a id="numbers"></a>
 ## Numbers
 
 ```go
@@ -992,6 +1041,7 @@ go fix
 ```
 
 
+<a id="pointers"></a>
 ## Pointers
 
 ```go
@@ -1037,6 +1087,7 @@ log.Printf()                 // timestamp
 ```
 
 
+<a id="profiling"></a>
 ## Profiling
 
 ```bash
@@ -1086,6 +1137,7 @@ reflect.DeepEqual(x, y)
 ```
 
 
+<a id="regex"></a>
 ## Regex
 
 ```go
@@ -1180,6 +1232,7 @@ sort.Strings(sl)
 ```
 
 
+<a id="strings"></a>
 ## Strings
 
 + immutable: read-only byte slices -> leading to cheap actions for copying, substrings
@@ -1298,6 +1351,7 @@ s = string(b)
 ```
 
 
+<a id="structs"></a>
 ## Structs
 
 + dynamic values
@@ -1413,6 +1467,7 @@ switch x := x.(type) {...}
 ```
 
 
+<a id="testing"></a>
 ## Testing
 
 + x.go >> x_test.go
@@ -1440,6 +1495,8 @@ go test -run=coverage -coverprofile=c.out <x>
 go tool cover -html=c.out
 ```
 
+
+<a id="time"></a>
 ## Time
 
 ```go
@@ -1535,6 +1592,7 @@ unsafe.Pointer()
 ```
 
 
+<a id="variables"></a>
 ## Variables
 
 ```go
