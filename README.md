@@ -36,7 +36,7 @@
 <a id="arrays"></a>
 ## Arrays
 
-+ after init: fixed length, static
++ fixed length, static
 + values (not pointers): passed to functions by value (else use pointer)
 + not multi-dimensional (use array of arrays, or slice of slices)
 + comparable using `==`
@@ -155,9 +155,9 @@ receiver(c)                  // blocking action until complete
 func main() {
 	c := make(chan int)
 	go func() {
-		c <- 5    // send 5
+		c <- 5        // send 5
 	}()
-	fmt.Println(<- c) // receive 5
+	fmt.Println(<- c)    // receive 5
 }
 ```
 
@@ -315,7 +315,7 @@ GOOS=window GOARCH=amd64 go build x.go    # Win
 ## Constants
 
 + number, string, or bool
-+ constants without type have greater precision ~256 bits
++ constants without type have greater precision: ~256 bits
 
 ```go
 const s string = "x"
@@ -568,7 +568,7 @@ q, p: = f()
 
 ### errors
 
-By convention, for functions that can fail, last argument should be error object.
++ by convention, for functions that can fail, last argument should be error object
 
 
 ### receiver
@@ -875,17 +875,17 @@ break
 
 
 ```go
-m := map[string] int{"k":1}           // key = string, value = int
+m := map[string] int{"k":1}         // key = string, value = int
 // else: m["k"] = 1
 fmt.Println(m["k"])
 
 delete(m, "k")
-a, ok := m["k"]                       // test if key "k" present and retrieve if so
-if !ok { ...                          // ok = bool
+a, ok := m["k"]                     // test if key "k" present and retrieve if so
+if !ok { ...                        // ok = bool
 
 sk = strings: sort.Strings(m)
 
-for k, v := range m {                 // iterate over map content
+for k, v := range m {               // iterate over map content
 	...
 }
 ```
@@ -898,7 +898,7 @@ ratings := map[string][]int {
 	"women": {44, 42},
 }
 
-map [T} bool // set
+map [T} bool    // set
 ```
 
 
@@ -997,7 +997,7 @@ x.Do(...)
 ## null byte
 
 ```go
-"\x00" // string
+"\x00"    // string
 ```
 
 
@@ -1306,7 +1306,7 @@ b := strings.Contains(h, n)
 x := "text"
 xbytes := []byte(x)
 xbytes[0] = 'T'
-fmt.Println(string(xbytes)) // but best to use runes
+fmt.Println(string(xbytes))    // but best to use runes
 ```
 
 **runes &ndash; multi-byte**
@@ -1380,11 +1380,11 @@ c := Movie{Name: "x", Rating: 0,}
 ----
 
 ```go
-type Point struct {X, Y int} // struct literal, type 1
+type Point struct {X, Y int}    // struct literal, type 1
 p := Point {1, 2}
 p := &Point {1, 2} = p := new(Point); *p = Point {1, 2}
 
-a := gif.GIF {loopCount: n} // type 2
+a := gif.GIF {loopCount: n}    // type 2
 ```
 
 ---
@@ -1601,14 +1601,14 @@ var s string = "txt"
 s := "txt"            // short assignment, compiler infers type (in functions only, not package level)
 ```
 
-+ **_** blank identifier: syntax requires var name, but logic does not
++ **_** blank identifier: syntax requires variable name, but logic does not
 + block level scope: braces &ndash; inner variable can access outer variables, but not vice versa
 + unassigned values: `string ""`
 
 
 ## Visibility
 
-+ uppercase first character of name = *exported* &ndash; visible and accessible outside of its own package
++ uppercase first character of name = *exported*: visible and accessible outside of its own package
 
 
 ## Wait Group
