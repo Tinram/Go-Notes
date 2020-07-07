@@ -314,7 +314,7 @@ GOOS=window GOARCH=amd64 go build x.go    # Win
 <a id="constants"></a>
 ## Constants
 
-+ number, string, or bool
++ number, string, or boolean
 + constants without type have greater precision: ~256 bits
 
 ```go
@@ -334,7 +334,7 @@ const (
 ```go
 type WD int
 const (
-	Sunday WD = iota    // enums, start 0
+	Sunday WD = iota    // enums, start at 0
 	Monday ...)
 
 const (
@@ -439,7 +439,7 @@ go doc -h -http :8000
 + encapsulated: inaccessible to clients of object (visibility)
 + name-based: unit of encapsulation is package (not type)
 + to encapsulate an object, make it a struct
-+ fields of struct type visible to all code in same package
++ fields of struct type visible to all code in the same package
 
 
 <a id="errors"></a>
@@ -454,7 +454,7 @@ if err != nil {
 	// or perhaps a panic() ...
 ```
 
-`recover()` can be used to catch/intercept a panic in a deferred function
+`recover()` can be used to catch / intercept a panic in a deferred function
 
 ```go
 import "errors"
@@ -506,7 +506,7 @@ gofmt <file>            # to stdout
 
 ### style
 
-+ tabs
++ tab indentation
 + CamelCase variables
 + Caps = public visibility
 + filenames: file_format.go
@@ -553,7 +553,7 @@ func init() {...}
 ### defer
 
 + deferred function executed when containing function exits
-+ arguments for defer evaluated when defer statement is evaluated (not when function executes)
++ arguments for `defer` evaluated when `defer` statement is evaluated (not when function executes)
 + multiple defers executed in reverse order (LIFO)
 
 
@@ -568,7 +568,7 @@ q, p: = f()
 
 ### errors
 
-+ by convention, for functions that can fail, last argument should be error object
++ for functions that can fail, by convention last argument should be error object
 
 
 ### receiver
@@ -1145,10 +1145,10 @@ import "regexp"
 
 x := regexp.MatchString("p([a-z]+)ch", "peach")
 
-re := regexp.MustCompile(`<a\s[^>]*href=\"([^\"]*)\"[^>]*>(.*)<\/a>`) // panics if cannot compile
+re := regexp.MustCompile(`<a\s[^>]*href=\"([^\"]*)\"[^>]*>(.*)<\/a>`)    // panics if cannot compile
 fmt.Println(re.MatchString(s))
 
-r, _ := regexp.Compile("p([a-z]+)ch") // error if cannot compile
+r, _ := regexp.Compile("p([a-z]+)ch")    // error if cannot compile
 r.MatchString("peach"))
 r.FindStringIndex("peach punch"))
 r.FindAllString("peach punch pinch", -1)
