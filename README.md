@@ -112,9 +112,9 @@ strconv.Itoa(i)
 ## Channels
 
 + connections of same type between goroutines
-+ avoids shared memory and mutexes
-+ two main operations: send, receive
-+ usage: define channel, use goroutine passing channel reference, process message returned
++ avoid shared memory and mutexes
++ *send* and *receive* are main operations
++ usage pattern: define channel, use goroutine passing channel reference, process message returned
 + channel connecting goroutines together &ndash; output to input = pipeline
 
 
@@ -126,8 +126,8 @@ c <- "txt"                // send to c
 msg := <-c                // receive from c
 ```
 
-+ blocks immediately after send operation until item received
-+ stronger sync guarantees than with buffered channel: every send with corresponding receive
++ blocks immediately after send operation, until item received
++ stronger sync guarantees than a buffered channel: every send with corresponding receive
 
 
 ### buffered
@@ -140,9 +140,9 @@ close(c)
 receiver(c)                  // blocking action until complete
 ```
 
-+ can receive up to N items after which send operations will block until channel is drained by at least n-1 item
-+ if channel full, goroutine blocked until space available; sync operations decoupled
-+ when `main()` executes `<–c`, waits for value to be sent
++ can receive up to *n* items after which send operations will block until channel is drained by at least *n - 1* item
++ if channel is full, goroutine blocked until space available; sync operations decoupled
++ when `main()` executes, `<–c`, waits for value to be sent
 + when goroutine function executes `c <– value`, waits for receiver
 + both sender and receiver must be ready to communicate, otherwise wait &ndash; channels both communicate and synchronise, yet even if buffered, are blocking &ndash; however, explicit non-blocking channels are created using `select`
 
@@ -179,7 +179,7 @@ for x ... {c <- x}
 close(c)
 ```
 
-+ only necessary to close channel when important to tell receiving goroutine that all data is sent
++ only necessary to close channel when it's important to tell receiving goroutine that all data is sent
 
 
 ### function arguments
@@ -211,7 +211,7 @@ select {
 ### quit pattern
 
 + timeout
-+ kill switch:
++ 'kill switch':
 ```go
 for {
 	select {
