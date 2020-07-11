@@ -622,6 +622,7 @@ go <slowfunc()>
 go func() { ...
 ```
 
++ not garbage collected, must exit on their own
 + unbounded parallelism of goroutines &ndash; always hits a limit: OS file descriptors, DNS etc &ndash; strategies required
 + suits order of events unknown
 + beware closures in goroutines &ndash; variables become shared
@@ -881,7 +882,7 @@ fmt.Println(m["k"])
 
 delete(m, "k")
 a, ok := m["k"]                     // test if key "k" present and retrieve if so
-if !ok { ...                        // ok = bool
+if !ok { ...                        // ok = boolean
 
 sk = strings: sort.Strings(m)
 
@@ -1239,7 +1240,7 @@ sort.Strings(sl)
 + UTF-8
 + no string indexing
 + each character of type 'rune' = int32
-+ string len() = num bytes (not runes) &ndash; is array of runes / bytes (length of runes versus bytes differs with multibytes)
++ string len() = number bytes (not runes) &ndash; is array of runes / bytes (length of runes versus bytes differs with multibytes)
 + main packages: *bytes*, *strings*, *strconv*, *unicode*
 
 
@@ -1249,7 +1250,7 @@ sort.Strings(sl)
 `...` | | raw string literal, can be multi-line, no escape sequences
 `\uhhhh` | | 16-bit Unicode value
 `'\x41'` | | rune < 256 value
-`rune` | | int32 = Unicode codepoint
+`rune` | | int32, Unicode codepoint
 
 ```go
 var x string                 // defaults to ""
