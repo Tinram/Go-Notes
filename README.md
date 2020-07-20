@@ -46,7 +46,7 @@
 var a[3] int                        // 3 ints, initialised to zero
 a[0] = 1
 a[len(a)-1]                         // last element
-var a[3] int = [3] int {1, 2, 3}    // literal
+var a[3] int = {1, 2, 3}            // literal
 a := [...] int {1, 2, 3}            // ellipsis: compiler calculates length
 a2 := a                             // copy a
 
@@ -554,7 +554,7 @@ func init() {...}
 
 + deferred function executed when containing function exits
 + arguments for `defer` evaluated when `defer` statement is evaluated (not when function executes)
-+ multiple defers executed in reverse order (LIFO)
++ multiple defers are stacked, and so executed in reverse order (LIFO)
 
 
 ### multiple returns
@@ -838,19 +838,19 @@ log.Printf("txt")
 ## Loops
 
 ```go
-for <cond> {                    // while
+for i := 0; i < 10; i++ {       // traditional
+
+for i < 10 {                    // while
 for {}                          // infinite
+
+// range iterates over slice or map:
+for _, u := range sl {
 
 for v := range x {              // index
 for _, v := range x {           // value
 
-for i < 10
-for i := 0; i < 10; i++ {       // traditional
-
 nums := [] int {1, 2, 3}
 for i, n := range nums {
-
-for _, u := range sl {          // iterate over slice
 
 b := []string{"a", "b", "c"}
 a = append(a, b...)             // variadic argument expands b to all members: avoids for...range loop
@@ -887,8 +887,6 @@ if !ok { ...                        // ok = boolean
 sk = strings: sort.Strings(m)
 
 for k, v := range m {               // iterate over map content
-	...
-}
 ```
 
 ### map literal
@@ -1166,14 +1164,14 @@ r.ReplaceAllString("a peach", "<fruit>")
 ## Slices
 
 + dynamic size, variable-length
-+ all elements same datatype
-+ basically pointers to underlying array &ndash; like ArrayList
++ can contain any datatype (with all elements of  same datatype)
++ basically pointers to underlying array &ndash; like an ArrayList
     + multiple slices can share same underlying array
-+ not comparable
-    + but bytes.Equal for byte slices
++ slices not comparable
+    + but `bytes.Equal` for byte slices
 + 3 components: pointer, length, capacity
     + pointer: first element if (array) that is reachable
-    + length: number of slice elements, which can't exceed capacity
+    + length: number of slice elements, which cannot exceed capacity
     + slicing beyond capacity = panic
     + slicing beyond len(sl) = extends slice
 
@@ -1186,9 +1184,9 @@ bs := []byte("txt")
 ```
 
 ```go
-len()
-cap()
-append(sl, x)     // also is delete. append() is variadic: multiple additions
+len(sl)
+cap(sl)           // capacity
+append(sl, x)     // append and delete; append() is variadic: multiple additions
 copy(dst, src)    // element from one to another of same type
 
 var sl = [] string                    // nil slice
@@ -1355,6 +1353,7 @@ s = string(b)
 <a id="structs"></a>
 ## Structs
 
++ collection of fields
 + dynamic values
 + can be nested
 + data fields in lowercase will not be encoded
@@ -1371,7 +1370,7 @@ type Movie struct {    // uppercase names and elements = public
 m := Movie {
 	Name: "Citizen Kane",
 	Rating: 9.8,   // comma required
-	}
+}
 
 m := new(Movie)
 m.Name = "Metropolis"
