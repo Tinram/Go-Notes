@@ -601,12 +601,12 @@ func f (vals ...int) int {
 
 ### named return values
 
-(aka *bare return*)
+(aka *bare / naked return*)
 
 ```go
-func f() (x, y string) {
-	x = ...
-	y = ...
+func f(i int) (x, y int) {
+	x = i * 2
+	y = x - i
 	return
 }
 ```
@@ -1599,9 +1599,10 @@ unsafe.Pointer()
 ```go
 var s string = "txt"
 
-s := "txt"            // short assignment, compiler infers type (in functions only, not package level)
+s := "txt"            // short assignment, compiler infers type
 ```
 
++ `var` can be defined at both package and function level; short assignment only function level
 + **_** blank identifier: syntax requires variable name, but logic does not
 + block level scope: braces &ndash; inner variable can access outer variables, but not vice versa
 + unassigned values: `string ""`
