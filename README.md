@@ -743,15 +743,22 @@ sudo apt-get install golang-go
 <a id="interfaces"></a>
 ## Interfaces
 
-+ specify method set
++ specifies set of method signatures
++ calling method on an interface value executes the method of the same name on its underlying type
 
 ```go
-type Robot interface {
-	PowerOn() err
+type I interface {
+	M()
 }
 
-type T850 struct {Name string}
-func (a *T850 PowerOn() err {return nil}
+type T struct {
+	S string
+}
+
+// type T implements the interface I (not explicitly declared)
+func (t T) M() {
+	fmt.Println(t.S)
+}
 ```
 
 
@@ -904,10 +911,12 @@ map [T} bool    // set
 <a id="methods"></a>
 ## Methods
 
-+ are really functions that require a receiver
-+ no `this` or `self` for receiver
++ define methods on datatypes
++ a function with a receiver argument
 + receiver argument appears before method name
-+ can define methods for any types e.g. slices (Go is rather unusual)
++ no `this` or `self` for receiver
++ methods with pointer receivers can take either a pointer or a value (unlike functions)
++ can define methods for any datatypes e.g. slices (Go is rather unusual)
 + method sets: multiple methods associated with the struct
 
 
@@ -919,7 +928,7 @@ func (m *Movie) summary() string { ...    // makes summary method available for 
         // pointer can modify elements within original struct: use to modify original initialisation of struct
 
 ```
-+ ideal usage: sphere struct, surface area & volume methods
++ ideal usage: sphere struct, surface area and volume methods
 
 
 ----
