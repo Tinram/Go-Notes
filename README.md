@@ -111,9 +111,10 @@ strconv.Itoa(i)
 <a id="channels"></a>
 ## Channels
 
-+ connections of same type between goroutines
++ connection / conduit of same datatype between goroutines
 + channels avoid shared memory and mutexes
 + *send* and *receive* are main operations
++ synchronous (*unbuffered*) or asynchronous (*buffered*)
 + usage pattern: define channel, use goroutine passing channel reference, process message returned
 + channel connecting goroutines together &ndash; output to input = pipeline
 
@@ -190,7 +191,7 @@ fn x (m chan <- string)    // write-only
 fn x (m chan string)       // read-write
 ```
 
-... cannot receive from each channel = whichever operation tried first will block until completion: need multiplex = `select`
+... cannot receive from each channel &ndash; whichever operation tried first will block until completion: need multiplex = `select`
 
 
 ### select
