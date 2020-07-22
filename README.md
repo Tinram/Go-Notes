@@ -190,14 +190,17 @@ fn x (m chan <- string)    // write-only
 fn x (m chan string)       // read-write
 ```
 
+... cannot receive from each channel = whichever operation tried first will block until completion: need multiplex = `select`
+
 
 ### select
 
-+ cannot receive from each channel = whichever operation tried first will block until completion: need multiplex = `select`
-+ creates series of receivers / conditionals for channels
-+ makes goroutine wait on multiple communication operations
-+ `default` case run if no other case is ready, otherwise ...
-+ blocks until one of the cases can run, then executes that case; chooses one at random if multiple cases are ready
++ creates series of receivers / conditionals for all channels
++ makes a goroutine wait on multiple communication operations
++ `select` blocks until:
+    + one of the cases is matched and can be executed
+    + if multiple cases are ready: chooses random case
+    + if no cases can run and `default` present, executes `default` clause
 
 ```go
 select {
