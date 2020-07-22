@@ -112,7 +112,7 @@ strconv.Itoa(i)
 ## Channels
 
 + connections of same type between goroutines
-+ avoid shared memory and mutexes
++ channels avoid shared memory and mutexes
 + *send* and *receive* are main operations
 + usage pattern: define channel, use goroutine passing channel reference, process message returned
 + channel connecting goroutines together &ndash; output to input = pipeline
@@ -122,7 +122,7 @@ strconv.Itoa(i)
 
 ```go
 c := make(chan string)    // create channel, datatype string
-c <- "txt"                // send to c
+c <- "txt"                // send "txt" to c
 msg := <-c                // receive from c
 ```
 
@@ -136,11 +136,11 @@ msg := <-c                // receive from c
 c := make(chan string, 2)    // 2 messages
 c <- "x"
 c <- "y"
-close(c)
+close(c)                     // no more values to be sent
 receiver(c)                  // blocking action until complete
 ```
 
-+ can receive up to *n* items after which send operations will block until channel is drained by at least *n - 1* item
++ can receive up to *n* items after which send operations will block until channel is drained by at least *n - 1* items
 + if channel is full, goroutine blocked until space available; sync operations decoupled
 + when `main()` executes, `<–c`, waits for value to be sent
 + when goroutine function executes `c <– value`, waits for receiver
@@ -196,8 +196,8 @@ fn x (m chan string)       // read-write
 + cannot receive from each channel = whichever operation tried first will block until completion: need multiplex = `select`
 + creates series of receivers / conditionals for channels
 + makes goroutine wait on multiple communication operations
-+ blocks until one of its cases can run, then executes that case; chooses one at random if multiple cases are ready
-+ for where only first goroutine returned is acted upon
++ `default` case run if no other case is ready, otherwise ...
++ blocks until one of the cases can run, then executes that case; chooses one at random if multiple cases are ready
 
 ```go
 select {
@@ -615,6 +615,7 @@ func f(i int) (x, y int) {
 <a id="goroutines"></a>
 ## Goroutines
 
++ lightweight thread managed by Go runtime
 + concurrency &ndash; avoids blocking
 
 ```go
