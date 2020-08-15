@@ -22,6 +22,7 @@
 [Maps](#maps)  
 [Methods](#methods)  
 [Numbers](#numbers)  
+[Packages](#packages)  
 [Pointers](#pointers)  
 [Profiling](#profiling)  
 [Regex](#regex)  
@@ -370,7 +371,7 @@ import "crypto"
 + x509
 
 also:  
-[x/crypto](golang.org/x/crypto)
+[x/crypto](https://godoc.org/golang.org/x/crypto)
 
 
 <a id="datatypes"></a>
@@ -434,7 +435,8 @@ gdb x
 ```bash
 go doc <pkg>                      # display docs
 go doc <pkg>.<member>.<method>
-go doc -h -http :8000
+
+godoc -http :8000
 ```
 
 
@@ -1042,7 +1044,16 @@ import "crypto/rand"
 ```
 
 
+<a id="packages"></a>
 ## Packages
+
+```go
+import (
+	"fmt",
+	"math"
+	_"xyz"    // ignores, to compile
+)
+```
 
 ```bash
 go list <pkg>
@@ -1051,7 +1062,64 @@ go list <pkg>
 ```bash
 go vet
 go fix
+go get -u    # ensure all pkgs / deps (including local) are latest version
 ```
+
+### 3rd Party
+
+```bash
+go get <url>
+```
+
+```go
+import ("<url>")
+```
+
+```bash
+# ~/.bash_profile:
+export GOPATH=$HOME/dir/
+source ~/.bash_profile
+```
+
+### Update
+
+```bash
+# project folder
+go get -u
+
+# specific
+go get -u <url>
+```
+
+### Create
+
+```go
+package mine
+import ("testing")
+func MyFunc() {    // public
+func x() {         // private
+```
+```bash
+go test    # test package
+```
+
+```go
+package httpsimple
+import ...
+
+//
+
+package main
+
+import(
+	"fmt"
+	"httpsimple"
+)
+
+httpsimple.Get(url)
+```
+
+[golang.org/pkg](https://golang.org/pkg)
 
 
 <a id="pointers"></a>
@@ -1491,6 +1559,7 @@ switch x := x.(type) {...}
 
 ```go
 import "testing"
+
 func TestNAME(t *Testing.T) {
 	...
 	t.Fatalf("msg")
