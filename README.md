@@ -1418,7 +1418,7 @@ fmt.Println(b.String())
 
 **int to string**
 ```go
-fmt.Sprintf
+fmt.Sprintf("%d", i)
 // or
 import("strconv")
 s := strconv.Itoa(i)
@@ -1426,9 +1426,12 @@ s := strconv.Itoa(i)
 
 **string to byte slice**
 ```go
-b = []byte(s)
-byte sl to string
-s = string(b)
+b := []byte(s)
+```
+
+**byte slice to string**
+```go
+s := string(b)
 ```
 
 
