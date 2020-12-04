@@ -1687,7 +1687,7 @@ var s string = "txt"
 s := "txt"            // short assignment, compiler infers type
 ```
 
-+ `var` can be defined at both package and function level; short assignment only function level
++ `var` can be defined at both package and function level; short assignment only at function level
 + **_** blank identifier: syntax requires variable name, but logic does not
 + block level scope: braces &ndash; inner variable can access outer variables, but not vice versa
 + unassigned values: `string ""`
@@ -1700,7 +1700,16 @@ s := "txt"            // short assignment, compiler infers type
 
 ## Wait Group
 
++ waits until a specified number of goroutines have finished before resuming program execution
++ works best when there is no need of results from goroutines
+
 ```go
 import "sync"
-sync.WaitGroup    // blocks until a specified number of goroutines have finished
+var wg sync.WaitGroup
+wg.Add(1)
+go func() {
+	...
+	wg.Done()
+}
+wg.Wait()
 ```
