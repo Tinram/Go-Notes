@@ -112,7 +112,7 @@ strconv.Itoa(i)
 <a id="channels"></a>
 ## Channels
 
-+ connection / conduit of same datatype between goroutines
++ conduit of same datatype between goroutines
 + channels avoid shared memory and mutexes
 + *send* and *receive* are main operations
 + synchronous (*unbuffered*) or asynchronous (*buffered*)
@@ -199,10 +199,11 @@ fn x (m chan string)       // read-write
 
 + creates series of receivers / conditionals for all channels
 + makes a goroutine wait on multiple communication operations
++ cases tested simultaneously (not sequentially)
 + `select` blocks until:
     + one of the cases is matched and can be executed
     + if multiple cases are ready: chooses random case
-    + if no cases can run and `default` present, executes `default` clause
+    + `default` clause executed if no cases matched &ndash provides exit of `select` without blocking
 
 ```go
 select {
@@ -228,6 +229,8 @@ for {
 
 ```go
 c := make(chan chan string)    // channel of string channels
+
+for x := range c {             // ranging: channel value iteration
 ```
 
 
